@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "lib": [
+      "ES6",
+      "DOM"
+    ],
+    "allowJs": true,
+	"strict": false,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@util/*": ["./src/utils/*"],
+      "@interface/*": ["./src/interfaces/*"],
+      "@config": ["./config/config.json"]
+    }
+  }
+}
