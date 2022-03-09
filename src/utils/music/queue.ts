@@ -36,5 +36,14 @@ function deleteQueue(guildId: string): void {
 	queue.delete(guildId);
 }
 
+function shuffleQueue(currentQueue: IQueue): void {
+	const array = currentQueue.songs;
+
+	for (let i = array.length - 1; i > 0; i -= 1) {
+		const newIndex = Math.floor(Math.random() * (i + 1));
+		[array[i], array[newIndex]] = [array[newIndex], array[i]];
+	}
+}
+
 export default queue;
-export { initQueue, initQueueWithMessage, deleteQueue };
+export { initQueue, initQueueWithMessage, deleteQueue, shuffleQueue };
