@@ -1,4 +1,6 @@
 /* eslint-disable no-param-reassign */
+import { validateURL } from 'ytdl-core';
+
 import IQueue from '@interface/music/Queue';
 
 import { addVideosIfPlaylist } from './youtube/playlist';
@@ -42,15 +44,17 @@ async function startPlaying(url: string, queue: IQueue): Promise<void> {
 	if (!playlistAmount) {
 		queue.songs.push({ link: url });
 	} else {
-		queue.messageChannel.send(`Foram adicionados ${playlistAmount} videos na fila.`);
+		queue.messageChannel.send(`:cd: **Foram adicionados** \`${playlistAmount}\` **videos na fila**`);
 	}
 
 	if (queue.songs.length > 0) {
-		playSong(queue.songs[0].link, queue);
+		const songLink = validateURL(url) ? url : queue.songs[0].link;
+
+		playSong(songLink, queue);
 		return;
 	}
 
-	queue.messageChannel.send('Não foi possível validar o link :(');
+	queue.messageChannel.send(':construction: **Não foi possível validar o link fornecido**');
 }
 
 export { playSong, startPlaying };

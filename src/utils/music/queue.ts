@@ -26,6 +26,9 @@ function initQueueWithMessage(guildId: string, message: Message): IQueue {
 
 	guildQueue.messageChannel = message.channel;
 
+	const channelName = message.guild.channels.cache.get(message.channel.id).name;
+	guildQueue.messageChannel.send(`:keyboard: **Vinculado ao canal de texto:** \`${channelName}\``);
+
 	return guildQueue;
 }
 

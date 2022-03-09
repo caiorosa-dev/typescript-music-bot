@@ -1,4 +1,4 @@
-import { Channel, DMChannel, Guild, NewsChannel, TextChannel } from 'discord.js';
+import { DMChannel, Guild, NewsChannel, TextChannel } from 'discord.js';
 
 import IQueueMusic from './QueueMusic';
 import IQueueServer from './QueueServer';

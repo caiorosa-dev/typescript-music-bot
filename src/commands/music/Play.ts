@@ -1,12 +1,14 @@
 /* eslint-disable max-len */
-import { Client, Message } from 'discord.js';
+import { Client, Message, MessageEmbed } from 'discord.js';
 import { validateURL } from 'ytdl-core';
 
 import ICommand from '@interface/Command';
+import { addedPlaylistToQueueEmbed, addedToQueueEmbed } from '@util/music/chat/embeds';
 import { playSong, startPlaying } from '@util/music/player';
 import queue, { initQueueWithMessage } from '@util/music/queue';
 import { connect } from '@util/music/voice';
-import { getVideoInfo, isPlaylistURL, searchVideo } from '@util/music/youtube/youtube';
+import { addVideosIfPlaylist } from '@util/music/youtube/playlist';
+import { getPlaylistTitle, getVideoInfo, isPlaylistURL, searchVideo } from '@util/music/youtube/youtube';
 
 module.exports = {
 	config: {
@@ -26,19 +28,28 @@ module.exports = {
 			return false;
 		}
 
+		if (queue.get(guildId) !== undefined && queue.get(guildId).messageChannel.id !== message.channel.id) {
+			const tempMsg = await message.channel.send(':x: **Estou vinculado a outro canal de texto!**');
+			setTimeout(async () => {
+				await tempMsg.delete();
+			}, 2500);
+
+			return true;
+		}
+
 		const guildQueue = queue.get(guildId) !== undefined ? queue.get(guildId) : initQueueWithMessage(guildId, message);
 		if (await connect(guildQueue, channel)) {
 			message.channel.send(`:loud_sound: **Conectado ao canal de voz:** \`${channel.name}\``);
 		}
 
-		if (guildQueue.songs.length > 0) {
+		const joinedArgs = _args.join(' ');
+
+		if (guildQueue.songs.length > 0 && joinedArgs.replace(' ', '').length > 0) {
 			playSong(guildQueue.songs[0].link, guildQueue);
 
 			message.channel.send(':cd: **Retomando a fila**.');
 			return false;
 		}
-
-		const joinedArgs = _args.join(' ');
 
 		if (joinedArgs.length <= 3) {
 			message.channel.send(':x: **Por favor informe uma palavra maior para pesquisa**');
@@ -69,13 +80,24 @@ module.exports = {
 			return false;
 		}
 
-		guildQueue.songs.push({ link: url });
+		const isPlaylist = isPlaylistURL(url);
+		let messageToSend: MessageEmbed;
 
-		const videoInfo = await getVideoInfo(url);
-		const videoTitle = videoInfo.videoDetails.title;
+		if (isPlaylist) {
+			const playlistAmount = await addVideosIfPlaylist(url, guildQueue);
+			const playlistTitle = await getPlaylistTitle(url);
+
+			messageToSend = addedPlaylistToQueueEmbed(playlistAmount, guildQueue.songs.length, url, playlistTitle);
+		} else {
+			guildQueue.songs.push({ link: url });
+
+			const videoInfo = await getVideoInfo(url);
+
+			messageToSend = addedToQueueEmbed(guildQueue.songs.length, url, videoInfo);
+		}
 
 		await tempMessage.delete();
-		message.channel.send(`**Adicionado na fila (${guildQueue.songs.length}):** ${videoTitle}`);
+		message.channel.send(messageToSend);
 		return false;
 	}
 } as ICommand;

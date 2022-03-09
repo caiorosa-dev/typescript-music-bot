@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import YoutubeAPI from 'simple-youtube-api';
 import { Readable } from 'stream';
 import ytScrapper from 'yt-search';
@@ -23,7 +24,7 @@ function validateURL(url: string): boolean {
 }
 
 function isPlaylistURL(url: string): boolean {
-	return url.includes('?list=');
+	return url.includes('list=');
 }
 
 async function getVideoInfo(url: string): Promise<videoInfo> {
@@ -42,6 +43,10 @@ async function getPlaylistVideos(url: string): Promise<IPlaylistVideo[]> {
 	return videos;
 }
 
-export {
-	getVideoStream, validateURL, getPlaylistVideos, isPlaylistURL, searchVideo, getVideoInfo
-};
+async function getPlaylistTitle(url: string): Promise<string> {
+	const playlist = await youtubeClient.getPlaylist(url);
+
+	return playlist.title;
+}
+
+export { getVideoStream, validateURL, getPlaylistVideos, isPlaylistURL, searchVideo, getVideoInfo, getPlaylistTitle };
