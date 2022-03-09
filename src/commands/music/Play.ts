@@ -31,7 +31,7 @@ module.exports = {
 		if (queue.get(guildId) !== undefined && queue.get(guildId).messageChannel.id !== message.channel.id) {
 			const tempMsg = await message.channel.send(':x: **Estou vinculado a outro canal de texto!**');
 			setTimeout(async () => {
-				await tempMsg.delete();
+				if (tempMsg !== null || tempMsg !== undefined) await tempMsg.delete();
 			}, 2500);
 
 			return true;
