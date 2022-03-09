@@ -1,4 +1,4 @@
-import { Guild } from 'discord.js';
+import { Channel, DMChannel, Guild, NewsChannel, TextChannel } from 'discord.js';
 
 import IQueueMusic from './QueueMusic';
 import IQueueServer from './QueueServer';
@@ -8,6 +8,7 @@ interface IQueue {
 	songs: IQueueMusic[];
 	guild: Guild;
 	loop: boolean;
+	messageChannel: TextChannel | DMChannel | NewsChannel;
 }
 
 export default IQueue;

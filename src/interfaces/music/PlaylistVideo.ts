@@ -1,5 +1,5 @@
 interface IPlaylistVideo {
-	name: string;
+	title: string;
 	url: string;
 }
 

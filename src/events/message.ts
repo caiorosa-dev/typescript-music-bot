@@ -7,9 +7,10 @@ module.exports = async (message: Message): Promise<void> => {
 	const { content } = message;
 	const contentSplit = content.startsWith(config.prefix) ? content.split('!')[1] : '';
 	const command = contentSplit.split(' ')[0];
+	const argsSplit = contentSplit.split(' ', 2)[1];
 
 	if (content.startsWith(config.prefix)) {
-		const args = contentSplit.split(' ').length > 1 ? contentSplit.split(' ', 2)[1].split('||') : [];
+		const args = contentSplit.split(' ').length > 1 ? argsSplit.split(' ') : [];
 
 		const deleteMessage = await executeCommand(command, message, args);
 		if (deleteMessage) {

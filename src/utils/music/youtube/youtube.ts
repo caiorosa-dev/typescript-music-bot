@@ -1,9 +1,13 @@
+import YoutubeAPI from 'simple-youtube-api';
 import { Readable } from 'stream';
-import ytplaylist from 'youtube-playlist';
 import ytScrapper from 'yt-search';
 import ytdl, { downloadOptions, videoInfo } from 'ytdl-core';
 
+import config from '@config';
 import IPlaylistVideo from '@interface/music/PlaylistVideo';
+import ISearchResult from '@interface/music/SearchResult';
+
+const youtubeClient = new YoutubeAPI(config.youtubeApiKey);
 
 const YTDL_OPTIONS: downloadOptions = {
 	filter: 'audioonly',
@@ -26,14 +30,16 @@ async function getVideoInfo(url: string): Promise<videoInfo> {
 	return await ytdl.getBasicInfo(url);
 }
 
-async function searchVideo(query: string): Promise<unknown> {
-	return await ytScrapper(query);
+async function searchVideo(query: string): Promise<ISearchResult[]> {
+	return (await ytScrapper(query)).videos;
 }
 
 async function getPlaylistVideos(url: string): Promise<IPlaylistVideo[]> {
-	const { data } = await ytplaylist(url, ['url', 'name']);
+	const playlist = await youtubeClient.getPlaylist(url);
 
-	return data;
+	const videos = await playlist.getVideos();
+
+	return videos;
 }
 
 export {

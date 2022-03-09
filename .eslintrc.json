@@ -24,6 +24,7 @@
 		"@typescript-eslint/no-extra-semi": "off",
 		"@typescript-eslint/no-var-requires": "off",
 		"no-return-await": "off",
+		"object-curly-newline": "off",
 		"no-new": "off",
 		"no-prototype-builtins": "off",
 		"no-restricted-syntax": "off",

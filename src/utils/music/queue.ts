@@ -1,4 +1,4 @@
-import { Guild } from 'discord.js';
+import { Guild, Message } from 'discord.js';
 
 import IQueue from '@interface/music/Queue';
 
@@ -12,7 +12,8 @@ function initQueue(guildId: string, guild: Guild): IQueue {
 		},
 		songs: [],
 		guild,
-		loop: false
+		loop: false,
+		messageChannel: null
 	};
 
 	queue.set(guildId, currentQueue);
@@ -20,5 +21,13 @@ function initQueue(guildId: string, guild: Guild): IQueue {
 	return currentQueue;
 }
 
+function initQueueWithMessage(guildId: string, message: Message): IQueue {
+	const guildQueue = initQueue(guildId, message.guild);
+
+	guildQueue.messageChannel = message.channel;
+
+	return guildQueue;
+}
+
 export default queue;
-export { initQueue };
+export { initQueue, initQueueWithMessage };

@@ -7,6 +7,18 @@ module.exports = (oldState: VoiceState, newState: VoiceState): void => {
 	const leaving = newState.channel === null;
 	const { channel } = oldState;
 
+	if (leaving && oldState.member.id === client.user.id) {
+		const guildQueue = queue.get(channel.guild.id);
+		const queueServer = guildQueue.server;
+
+		if (guildQueue !== undefined && queueServer.connection !== null) {
+			queueServer.connection = null;
+			queueServer.dispatcher = null;
+
+			guildQueue.messageChannel.send('To metendo o pe, valeu');
+		}
+	}
+
 	if (leaving && oldState.member.id !== client.user.id) {
 		let guildQueue = queue.get(channel.guild.id);
 		const queueServer = guildQueue.server;
@@ -26,9 +38,6 @@ module.exports = (oldState: VoiceState, newState: VoiceState): void => {
 
 					if (guildQueue !== undefined && queueServer.connection !== undefined) {
 						queueServer.connection.disconnect();
-
-						queueServer.connection = null;
-						queueServer.dispatcher = null;
 					}
 				}, 300000);
 			}

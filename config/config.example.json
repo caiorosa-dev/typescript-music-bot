@@ -1,6 +1,7 @@
 {
     "prefix": "!",
     "token": "ENTER_YOUR_TOKEN_HERE",
+	"youtubeApiKey": "ENTER_YOUR_YT_API_KEY_HERE",
 	"activityPreference": {
 		"status": "online",
 		"activity": {
