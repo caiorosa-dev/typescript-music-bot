@@ -6,7 +6,7 @@ import ICommand from '@interface/Command';
 import { playSong, startPlaying } from '@util/music/player';
 import queue, { initQueueWithMessage } from '@util/music/queue';
 import { connect } from '@util/music/voice';
-import { searchVideo } from '@util/music/youtube/youtube';
+import { getVideoInfo, searchVideo } from '@util/music/youtube/youtube';
 
 module.exports = {
 	config: {
@@ -73,7 +73,9 @@ module.exports = {
 			return false;
 		}
 
-		guildQueue.songs.unshift({ link: url });
+		const info = await getVideoInfo(url);
+
+		guildQueue.songs.unshift({ link: url, title: info.videoDetails.title });
 		playSong(guildQueue.songs[0].link, guildQueue);
 
 		return false;

@@ -55,8 +55,15 @@ module.exports = {
 				const song = songs[i];
 
 				if (song === undefined) continue;
+				const nDisplay = start > 0 ? i : (i + 1);
 
-				description += `\`${i}.\` [${song.title}](${song.link}) \n`;
+				description += `\`${nDisplay}.\` [${song.title}](${song.link}) \n`;
+			}
+
+			if (songs.length > total) {
+				const amount = songs.length - total;
+
+				description += `*E mais ${amount} faixas*`;
 			}
 
 			embed.setDescription(description);
