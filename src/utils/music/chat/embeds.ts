@@ -10,9 +10,10 @@ function addedToQueueEmbed(pos: number, url: string, info: videoInfo): MessageEm
 		.setTitle(info.videoDetails.title)
 		.setTimestamp(new Date())
 		.setColor(config.embedColor)
+		.setThumbnail(info.thumbnail_url)
 		.setURL(url)
-		.addField('Canal', info.videoDetails.author, true)
-		.addField('Duração', info.timestamp, true)
+		.addField('Canal', info.videoDetails.author.name, true)
+		.addField('Duração', `${info.videoDetails.lengthSeconds} segundos`, true)
 		.addField('Posição', pos, true);
 }
 

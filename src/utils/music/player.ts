@@ -1,10 +1,12 @@
+/* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 import { validateURL } from 'ytdl-core';
 
 import IQueue from '@interface/music/Queue';
 
+import { addedPlaylistToQueueEmbed } from './chat/embeds';
 import { addVideosIfPlaylist } from './youtube/playlist';
-import { getVideoInfo, getVideoStream } from './youtube/youtube';
+import { getPlaylistTitle, getVideoInfo, getVideoStream } from './youtube/youtube';
 
 /**
  * Function to play a specific song by url
@@ -44,7 +46,11 @@ async function startPlaying(url: string, queue: IQueue): Promise<void> {
 	if (!playlistAmount) {
 		queue.songs.push({ link: url });
 	} else {
-		queue.messageChannel.send(`:cd: **Foram adicionados** \`${playlistAmount}\` **videos na fila**`);
+		const playlistTitle = await getPlaylistTitle(url);
+
+		const embed = addedPlaylistToQueueEmbed(playlistAmount, queue.songs.length, url, playlistTitle);
+
+		queue.messageChannel.send(embed);
 	}
 
 	if (queue.songs.length > 0) {

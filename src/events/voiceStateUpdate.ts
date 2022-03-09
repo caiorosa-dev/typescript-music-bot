@@ -23,7 +23,8 @@ module.exports = (oldState: VoiceState, newState: VoiceState): void => {
 
 	if (leaving && oldState.member.id !== client.user.id) {
 		let guildQueue = queue.get(channel.guild.id);
-		const queueServer = guildQueue.server;
+		const queueServer = guildQueue !== undefined ? guildQueue.server : undefined;
+		if (queueServer === undefined) return;
 
 		if (guildQueue !== undefined && queueServer.connection !== null) {
 			const connectionChannelId = queueServer.connection.channel.id;

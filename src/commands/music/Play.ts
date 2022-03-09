@@ -44,7 +44,7 @@ module.exports = {
 
 		const joinedArgs = _args.join(' ');
 
-		if (guildQueue.songs.length > 0 && joinedArgs.replace(' ', '').length > 0) {
+		if (guildQueue.songs.length > 0 && joinedArgs.replace(' ', '').length === 0) {
 			playSong(guildQueue.songs[0].link, guildQueue);
 
 			message.channel.send(':cd: **Retomando a fila**.');
