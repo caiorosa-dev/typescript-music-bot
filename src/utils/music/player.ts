@@ -6,7 +6,7 @@ import IQueue from '@interface/music/Queue';
 
 import { addedPlaylistToQueueEmbed } from './chat/embeds';
 import { addVideosIfPlaylist } from './youtube/playlist';
-import { getPlaylistTitle, getVideoInfo, getVideoStream } from './youtube/youtube';
+import { getPlaylistInfo, getVideoInfo, getVideoStream } from './youtube/youtube';
 
 /**
  * Function to play a specific song by url
@@ -36,19 +36,24 @@ async function playSong(link: string, queue: IQueue): Promise<void> {
 		queue.songs.shift();
 		if (queue.songs.length > 0) {
 			playSong(queue.songs[0].link, queue);
+		} else {
+			queue.messageChannel.send(':white_check_mark: **Fila finalizada**');
 		}
 	});
 }
 
-async function startPlaying(url: string, queue: IQueue): Promise<void> {
-	const playlistAmount = await addVideosIfPlaylist(url, queue);
+async function startPlaying(url: string, queue: IQueue, playlist = true): Promise<void> {
+	const playlistAmount = playlist ? await addVideosIfPlaylist(url, queue) : 0;
 
-	if (!playlistAmount) {
-		queue.songs.push({ link: url });
+	const videoInfo = await getVideoInfo(url);
+
+	if (!playlistAmount || !playlist) {
+		queue.songs.push({ link: url, title: videoInfo.videoDetails.title });
 	} else {
-		const playlistTitle = await getPlaylistTitle(url);
+		const playlistInfo = await getPlaylistInfo(url);
+		const avatar = queue.requestedBy.user.avatarURL();
 
-		const embed = addedPlaylistToQueueEmbed(playlistAmount, queue.songs.length, url, playlistTitle);
+		const embed = addedPlaylistToQueueEmbed(playlistAmount, queue.songs.length, url, playlistInfo.title, playlistInfo.firstUrl, avatar);
 
 		queue.messageChannel.send(embed);
 	}

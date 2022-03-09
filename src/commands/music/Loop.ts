@@ -10,7 +10,7 @@ module.exports = {
 		category: 'Music',
 		description: '',
 		admin: false,
-		aliases: ['leave', 'sair', 'disconnect', 'd']
+		aliases: ['loop', 'l']
 	},
 	execute: async (client: Client, message: Message, _args: string[]): Promise<boolean> => {
 		const guildId = message.guild.id;
@@ -32,11 +32,11 @@ module.exports = {
 
 		const guildQueue = queue.get(guildId);
 		if (guildQueue !== undefined && guildQueue.server.connection !== null) {
-			message.channel.send(`:wave: **Desconectando do canal de voz:** \`${guildQueue.server.connection.channel.name}\` **Bye Bye**`);
+			guildQueue.loop = !guildQueue.loop;
+			const label = guildQueue.loop ? 'ativado' : 'desativado';
 
-			guildQueue.server.connection.disconnect();
-			guildQueue.server.connection = null;
-			guildQueue.server.dispatcher = null;
+			message.channel.send(`:repeat: **O loop da musica foi** \`${label}\``);
+			return false;
 		}
 
 		return false;

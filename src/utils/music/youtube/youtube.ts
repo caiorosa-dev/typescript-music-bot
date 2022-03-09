@@ -43,10 +43,18 @@ async function getPlaylistVideos(url: string): Promise<IPlaylistVideo[]> {
 	return videos;
 }
 
-async function getPlaylistTitle(url: string): Promise<string> {
-	const playlist = await youtubeClient.getPlaylist(url);
-
-	return playlist.title;
+type PlaylistInfo = {
+	title: string;
+	firstUrl: string;
 }
 
-export { getVideoStream, validateURL, getPlaylistVideos, isPlaylistURL, searchVideo, getVideoInfo, getPlaylistTitle };
+async function getPlaylistInfo(url: string): Promise<PlaylistInfo> {
+	const playlist = await youtubeClient.getPlaylist(url);
+
+	return {
+		title: playlist.title,
+		firstUrl: playlist.thumbnails.maxres.url
+	};
+}
+
+export { getVideoStream, validateURL, getPlaylistVideos, isPlaylistURL, searchVideo, getVideoInfo, getPlaylistInfo };

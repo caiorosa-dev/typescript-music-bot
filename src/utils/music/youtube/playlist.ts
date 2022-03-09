@@ -10,7 +10,8 @@ async function addVideosIfPlaylist(url: string, queue: IQueue): Promise<number> 
 		videos.forEach((video) => {
 			i += 1;
 			queue.songs.push({
-				link: video.url
+				link: video.url,
+				title: video.title
 			});
 		});
 

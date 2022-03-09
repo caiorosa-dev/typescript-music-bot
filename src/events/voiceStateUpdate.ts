@@ -14,10 +14,10 @@ module.exports = (oldState: VoiceState, newState: VoiceState): void => {
 		const queueServer = guildQueue.server;
 
 		if (guildQueue !== undefined && queueServer.connection !== null) {
-			queueServer.connection = null;
-			queueServer.dispatcher = null;
+			guildQueue.server.connection = null;
+			guildQueue.server.dispatcher = null;
 
-			guildQueue.messageChannel.send(':wave: **Saindo do canal de voz**');
+			guildQueue.messageChannel.send(':wave: **Saindo do canal de voz, Bye Bye**');
 		}
 	}
 

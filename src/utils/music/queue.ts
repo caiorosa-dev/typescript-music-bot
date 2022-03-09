@@ -32,5 +32,9 @@ function initQueueWithMessage(guildId: string, message: Message): IQueue {
 	return guildQueue;
 }
 
+function deleteQueue(guildId: string): void {
+	queue.delete(guildId);
+}
+
 export default queue;
-export { initQueue, initQueueWithMessage };
+export { initQueue, initQueueWithMessage, deleteQueue };

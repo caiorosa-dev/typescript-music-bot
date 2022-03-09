@@ -1,5 +1,6 @@
 interface IQueueMusic {
-	link: string
+	link: string,
+	title: string
 }
 
 export default IQueueMusic;
