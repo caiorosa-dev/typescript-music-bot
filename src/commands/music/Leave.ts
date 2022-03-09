@@ -8,7 +8,7 @@ module.exports = {
 	config: {
 		name: 'Play',
 		category: 'Music',
-		description: '',
+		description: 'Sai do canal de voz atual',
 		admin: false,
 		aliases: ['leave', 'sair', 'disconnect', 'd']
 	},

@@ -8,7 +8,7 @@ module.exports = {
 	config: {
 		name: 'Play',
 		category: 'Music',
-		description: '',
+		description: 'Ativa o loop por faixa na fila',
 		admin: false,
 		aliases: ['loop', 'l']
 	},

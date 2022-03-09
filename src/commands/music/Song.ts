@@ -13,7 +13,7 @@ module.exports = {
 	config: {
 		name: 'Song',
 		category: 'Music',
-		description: '',
+		description: 'Toca/Adiciona uma faixa a fila (Suporta pesquisa)',
 		admin: false,
 		aliases: ['song']
 	},

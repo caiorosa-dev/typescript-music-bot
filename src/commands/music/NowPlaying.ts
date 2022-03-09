@@ -8,7 +8,7 @@ module.exports = {
 	config: {
 		name: 'NowPlaying',
 		category: 'Music',
-		description: '',
+		description: 'Mostra a faixa que está tocando no momento',
 		admin: false,
 		aliases: ['nowplaying', 'np']
 	},

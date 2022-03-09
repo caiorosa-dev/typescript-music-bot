@@ -6,7 +6,7 @@ module.exports = {
 	config: {
 		name: 'Mention',
 		category: 'Administration',
-		description: '',
+		description: 'Menciona todos os usuários (Cuidado)',
 		admin: true,
 		aliases: ['mention', 'everyone', 'todos']
 	},

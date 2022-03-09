@@ -8,7 +8,7 @@ module.exports = {
 	config: {
 		name: 'Resume',
 		category: 'Music',
-		description: '',
+		description: 'Retoma a reprodução da fila',
 		admin: false,
 		aliases: ['resume', 'despausar']
 	},

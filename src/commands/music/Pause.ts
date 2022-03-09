@@ -8,7 +8,7 @@ module.exports = {
 	config: {
 		name: 'Pause',
 		category: 'Music',
-		description: '',
+		description: 'Pausa a faixa atual',
 		admin: false,
 		aliases: ['pause', 'pausar', 'stop']
 	},

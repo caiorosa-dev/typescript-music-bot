@@ -14,7 +14,7 @@ module.exports = {
 	config: {
 		name: 'Play',
 		category: 'Music',
-		description: '',
+		description: 'Toca/Adiciona um link a fila (Suporta pesquisa e playlists)',
 		admin: false,
 		aliases: ['play', 'tocar', 'p']
 	},

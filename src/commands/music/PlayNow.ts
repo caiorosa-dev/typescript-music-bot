@@ -12,7 +12,7 @@ module.exports = {
 	config: {
 		name: 'PlayNow',
 		category: 'Music',
-		description: '',
+		description: 'Toca uma música imediatamente (Suporta pesquisa e faixas únicas)',
 		admin: false,
 		aliases: ['playnow', 'pn']
 	},

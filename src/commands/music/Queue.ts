@@ -11,7 +11,7 @@ module.exports = {
 	config: {
 		name: 'Queue',
 		category: 'Music',
-		description: '',
+		description: 'Mostra a fila de faixas atual',
 		admin: false,
 		aliases: ['queue', 'q']
 	},

@@ -8,7 +8,7 @@ module.exports = {
 	config: {
 		name: 'Play',
 		category: 'Music',
-		description: '',
+		description: 'Entra no canal de voz do usuário',
 		admin: false,
 		aliases: ['join', 'entrar', 'connect', 'c', 'j']
 	},

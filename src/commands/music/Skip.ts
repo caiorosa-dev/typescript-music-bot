@@ -9,7 +9,7 @@ module.exports = {
 	config: {
 		name: 'Skip',
 		category: 'Music',
-		description: '',
+		description: 'Pula uma faixa',
 		admin: false,
 		aliases: ['skip', 'pular', 's']
 	},
