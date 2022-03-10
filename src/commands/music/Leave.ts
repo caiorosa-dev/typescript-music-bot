@@ -6,7 +6,7 @@ import queue from '@util/music/queue';
 
 module.exports = {
 	config: {
-		name: 'Play',
+		name: 'Leave',
 		category: 'Music',
 		description: 'Sai do canal de voz atual',
 		admin: false,

@@ -6,7 +6,7 @@ import queue, { initQueueWithMessage } from '@util/music/queue';
 
 module.exports = {
 	config: {
-		name: 'Play',
+		name: 'Join',
 		category: 'Music',
 		description: 'Entra no canal de voz do usuário',
 		admin: false,

@@ -45,8 +45,9 @@ module.exports = {
 				.setTimestamp(new Date());
 
 			const nowPlaying: IQueueMusic = guildQueue.server.dispatcher !== null ? guildQueue.songs[0] : { title: '-/-', link: '' };
+			const looping = guildQueue.loop ? '\n\n:repeat: **A fila está em loop**' : '';
 
-			let description = `\n\n:arrow_forward: **Tocando agora:** \n\n[${nowPlaying.title}](${nowPlaying.link}) \n\n:arrow_down: **Próximas faixas: **\n\n`;
+			let description = `\n\n:arrow_forward: **Tocando agora:** \n\n[${nowPlaying.title}](${nowPlaying.link}) ${looping}\n\n:arrow_down: **Próximas faixas: **\n\n`;
 
 			const start = guildQueue.server.dispatcher !== null ? 1 : 0;
 			const total = guildQueue.server.dispatcher !== null ? 11 : 10;

@@ -6,7 +6,7 @@ import queue from '@util/music/queue';
 
 module.exports = {
 	config: {
-		name: 'Play',
+		name: 'Loop',
 		category: 'Music',
 		description: 'Ativa o loop por faixa na fila',
 		admin: false,

@@ -31,7 +31,7 @@ module.exports = {
 		}
 
 		const guildQueue = queue.get(guildId);
-		if (guildQueue !== undefined && guildQueue.server.dispatcher !== null) {
+		if (guildQueue !== undefined && guildQueue.server.dispatcher !== null && guildQueue.songs.length > 0) {
 			const currentSong = guildQueue.songs[0];
 
 			message.channel.send(`:musical_note: **Tocando no momento:** \`${currentSong.title}\``);
