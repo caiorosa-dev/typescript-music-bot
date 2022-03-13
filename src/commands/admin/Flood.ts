@@ -12,7 +12,7 @@ module.exports = {
 		aliases: ['mention', 'everyone', 'todos']
 	},
 	execute: async (client: Client, message: Message, _args: string[]): Promise<boolean> => {
-		if (message.mentions.users.size > 0) {
+		if (message.mentions.users.size === 0) {
 			const tempMsg = await message.channel.send(':x: **Por favor mencione algum filho da puta**');
 
 			setTimeout(() => {
@@ -21,10 +21,10 @@ module.exports = {
 			return true;
 		}
 
-		const user = message.mentions.users.first().tag;
+		const user = message.mentions.users.first();
 
 		for (let i = 0; i < 20; i++) {
-			message.channel.send(`@${user}`).then((msg) => {
+			message.channel.send(`<@${user.id}>`).then((msg) => {
 				msg.delete();
 			});
 		}
