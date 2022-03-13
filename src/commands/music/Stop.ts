@@ -32,6 +32,7 @@ module.exports = {
 		}
 
 		const guildQueue = queue.get(guildId);
+		guildQueue.loop = false;
 		guildQueue.server.dispatcher.end();
 
 		message.channel.send(':no_entry: **Música parada**');

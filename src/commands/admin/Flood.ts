@@ -23,7 +23,7 @@ module.exports = {
 
 		const user = message.mentions.users.first();
 
-		for (let i = 0; i < 20; i++) {
+		for (let i = 0; i < 10; i++) {
 			message.channel.send(`<@${user.id}>`).then((msg) => {
 				msg.delete();
 			});
