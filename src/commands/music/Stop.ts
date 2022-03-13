@@ -6,15 +6,16 @@ import queue from '@util/music/queue';
 
 module.exports = {
 	config: {
-		name: 'Pause',
+		name: 'Stop',
 		category: 'Music',
-		description: 'Pausa a faixa atual',
+		description: 'Para a música atual (Não limpa a fila)',
 		admin: false,
-		aliases: ['pause', 'pausar']
+		aliases: ['stop']
 	},
 	execute: async (client: Client, message: Message, _args: string[]): Promise<boolean> => {
 		const guildId = message.guild.id;
-		const existConnection = queue.get(guildId) !== undefined ? queue.get(guildId).server.connection !== null : false;
+		const existDispatcher = queue.get(guildId) !== undefined ? queue.get(guildId).server.dispatcher !== null &&
+		queue.get(guildId).server.connection !== null : false;
 
 		if (queue.get(guildId) !== undefined && queue.get(guildId).messageChannel.id !== message.channel.id) {
 			const tempMsg = await message.channel.send(':x: **Estou vinculado a outro canal de texto!**');
@@ -25,20 +26,15 @@ module.exports = {
 			return true;
 		}
 
-		if (!existConnection) {
-			message.channel.send(':x: **Não estou conectado a nenhum canal de voz**');
+		if (!existDispatcher) {
+			message.channel.send(':x: **Não está tocando nada no momento**');
 			return false;
 		}
 
 		const guildQueue = queue.get(guildId);
-		if (guildQueue !== undefined && guildQueue.server.dispatcher !== null && !guildQueue.server.dispatcher.paused) {
-			guildQueue.server.dispatcher.pause();
-			message.channel.send(':pause_button: **Faixa pausada com sucesso**');
+		guildQueue.server.dispatcher.end();
 
-			return false;
-		}
-
-		message.channel.send(':x: **A faixa já está pausada**');
+		message.channel.send(':no_entry: **Música parada**');
 		return false;
 	}
 } as ICommand;
