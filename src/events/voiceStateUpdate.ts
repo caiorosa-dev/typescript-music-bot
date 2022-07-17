@@ -16,6 +16,7 @@ module.exports = (oldState: VoiceState, newState: VoiceState): void => {
 		if (guildQueue !== undefined && queueServer.connection !== null) {
 			guildQueue.server.connection = null;
 			guildQueue.server.dispatcher = null;
+			guildQueue.messageChannel = null;
 
 			guildQueue.messageChannel.send(':wave: **Saindo do canal de voz, Bye Bye**');
 		}
@@ -24,6 +25,7 @@ module.exports = (oldState: VoiceState, newState: VoiceState): void => {
 	if (leaving && oldState.member.id !== client.user.id) {
 		let guildQueue = queue.get(channel.guild.id);
 		const queueServer = guildQueue !== undefined ? guildQueue.server : undefined;
+
 		if (queueServer === undefined) return;
 
 		if (guildQueue !== undefined && queueServer.connection !== null) {
@@ -41,6 +43,7 @@ module.exports = (oldState: VoiceState, newState: VoiceState): void => {
 
 					if (guildQueue !== undefined && queueServer.connection !== undefined) {
 						queueServer.connection.disconnect();
+						guildQueue.messageChannel = null;
 					}
 				}, 300000);
 			}

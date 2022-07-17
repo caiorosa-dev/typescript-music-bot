@@ -8,6 +8,8 @@ interface IQueue {
 	songs: IQueueMusic[];
 	guild: Guild;
 	loop: boolean;
+	queueLoop: boolean;
+	currentSong?: number;
 	messageChannel: TextChannel | DMChannel | NewsChannel;
 	requestedBy?: GuildMember;
 }

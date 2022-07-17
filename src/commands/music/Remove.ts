@@ -3,7 +3,6 @@
 import { Client, Message } from 'discord.js';
 
 import ICommand from '@interface/Command';
-import { playSong } from '@util/music/player';
 import queue from '@util/music/queue';
 
 module.exports = {
@@ -50,11 +49,10 @@ module.exports = {
 
 		const song = guildQueue.songs[parseInt(_args[0])];
 		if (song !== undefined) {
-			playSong(guildQueue.songs[0].link, guildQueue);
-		} else {
-			message.channel.send(':white_check_mark: **Fila finalizada**');
-		}
+			guildQueue.songs.slice(parseInt(_args[0]), 1);
 
+			message.channel.send(`:track_next: **Removida a música:** \`${song.title}\``);
+		}
 		return false;
 	}
 } as ICommand;

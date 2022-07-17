@@ -13,6 +13,7 @@ function initQueue(guildId: string, guild: Guild): IQueue {
 		songs: [],
 		guild,
 		loop: false,
+		queueLoop: false,
 		messageChannel: null
 	};
 

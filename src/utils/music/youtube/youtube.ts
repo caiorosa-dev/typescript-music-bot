@@ -51,9 +51,11 @@ type PlaylistInfo = {
 async function getPlaylistInfo(url: string): Promise<PlaylistInfo> {
 	const playlist = await youtubeClient.getPlaylist(url);
 
+	const firstUrl = playlist.thumbnails.maxres ? playlist.thumbnails.maxres.url : playlist.thumbnails.default.url;
+
 	return {
 		title: playlist.title,
-		firstUrl: playlist.thumbnails.maxres.url
+		firstUrl
 	};
 }
 

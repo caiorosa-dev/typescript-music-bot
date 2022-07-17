@@ -33,6 +33,14 @@ async function playSong(link: string, queue: IQueue): Promise<void> {
 			return;
 		}
 
+		if (queue.queueLoop) {
+			queue.currentSong += 1;
+			if (queue.currentSong > queue.songs.length) queue.currentSong = 0;
+
+			playSong(queue.songs[queue.currentSong].link, queue);
+			return;
+		}
+
 		queue.songs.shift();
 		if (queue.songs.length > 0) {
 			playSong(queue.songs[0].link, queue);

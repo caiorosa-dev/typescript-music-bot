@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import path from 'path';
 
 import { commandsMap } from './executor/commandExecutor';
