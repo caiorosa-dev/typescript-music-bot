@@ -1,8 +1,8 @@
 {
-	"name": "strixcloud-bot",
+	"name": "music-bot",
 	"version": "1.0.0",
-	"description": "An bot for Strix Cloud",
-	"repository": "https://github.com/StrixPlugins/bot",
+	"description": "An bot music bot",
+	"repository": "https://github.com/bug4do",
 	"main": "src/bot.ts",
 	"scripts": {
 		"dev": "tsnd -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/bot.ts",
@@ -29,7 +29,6 @@
 		"@babel/preset-env": "^7.12.10",
 		"@babel/preset-typescript": "^7.12.7",
 		"@types/node": "^14.14.28",
-		"@types/axios": "^0.14.0",
 		"@typescript-eslint/eslint-plugin": "^4.10.0",
 		"@typescript-eslint/parser": "^4.10.0",
 		"babel-plugin-module-resolver": "^4.0.0",

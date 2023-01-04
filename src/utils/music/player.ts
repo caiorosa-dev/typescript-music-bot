@@ -24,7 +24,6 @@ async function playSong(link: string, queue: IQueue): Promise<void> {
 
 	queue.messageChannel.send(`:notes: **Tocando agora:** \`${videoTitle}\``);
 
-	// eslint-disable-next-line no-param-reassign
 	queue.server.dispatcher = connection.play(getVideoStream(link));
 
 	queue.server.dispatcher.on('finish', () => {
@@ -34,12 +33,16 @@ async function playSong(link: string, queue: IQueue): Promise<void> {
 		}
 
 		if (queue.queueLoop) {
-			queue.currentSong += 1;
-			if (queue.currentSong > queue.songs.length) queue.currentSong = 0;
+			if (queue.currentSong === undefined) queue.currentSong = 0;
+			else queue.currentSong += 1;
+
+			if (queue.currentSong >= queue.songs.length) queue.currentSong = 0;
 
 			playSong(queue.songs[queue.currentSong].link, queue);
 			return;
 		}
+
+		queue.currentSong = 0;
 
 		queue.songs.shift();
 		if (queue.songs.length > 0) {
